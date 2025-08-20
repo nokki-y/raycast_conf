@@ -1,4 +1,4 @@
-# ryacast_conf
+# raycast_conf
 
 Raycast用のカスタムスクリプトコレクション
 
