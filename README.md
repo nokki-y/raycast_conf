@@ -124,6 +124,23 @@ Raycast → "Open GitHub" → リポジトリを選択
 - 該当タブがない場合のみ新規タブで開く
 - 実行後、Raycastのコマンドウィンドウが自動的に閉じる
 
+### 📹 activate_meet.sh
+
+開いているGoogle Meetタブをアクティブにする
+
+**使用方法**:
+
+```text
+Raycast → "Activate Google Meet"
+```
+
+**機能**:
+
+- Chromeで開いているGoogle Meetタブを検索
+- 見つかった場合、そのタブをアクティブにする
+- タブが見つからない場合は警告メッセージを表示
+- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
+
 ### ☕ prevent_sleep.sh
 
 スクリーンセーバーとスリープを防止する
@@ -175,7 +192,7 @@ Raycast → "Prevent Sleep Timer" → 分数を入力（例: 30, 60, 120）
 - macOS
 - Raycast
 - Bash
-- Google Chrome（open_metalife.sh、open_okan.sh、open_x.sh、open_calendar.sh、open_mail.sh、open_github.sh使用時）
+- Google Chrome（open_metalife.sh、open_okan.sh、open_x.sh、open_calendar.sh、open_mail.sh、open_github.sh、activate_meet.sh使用時）
 
 ## 環境変数
 
