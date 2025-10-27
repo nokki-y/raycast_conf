@@ -6,19 +6,16 @@
 # @raycast.mode silent
 
 # Optional parameters:
-# @raycast.icon 🌐
-# @raycast.packageName Browser
-# @raycast.argument1 { "type": "text", "placeholder": "URL (optional)", "optional": true }
+# @raycast.icon 𝕏
+# @raycast.packageName Web Browser
 
 # Documentation:
 # @raycast.description X (旧Twitter) をChromeで開きます
-# @raycast.author nokki_y
+# @raycast.author nokki-y
+# @raycast.authorURL https://github.com/nokki-y
 
-# デフォルトURL
-DEFAULT_URL="https://x.com/home"
-
-# 引数があればそれを使用、なければデフォルトURL
-URL="${1:-$DEFAULT_URL}"
+# X URL
+URL="https://x.com/home"
 
 # ChromeでURLを開く（既存のタブがあればアクティブにする）
 osascript <<EOF

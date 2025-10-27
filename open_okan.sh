@@ -2,15 +2,15 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title Open MetaLife
+# @raycast.title Open おかん
 # @raycast.mode silent
 
 # Optional parameters:
-# @raycast.icon 🌐
+# @raycast.icon 📊
 # @raycast.packageName Web Browser
 
 # Documentation:
-# @raycast.description MetaLifeのスペースをChromeで開きます
+# @raycast.description おかんスプレッドシートをChromeで開きます
 # @raycast.author nokki-y
 # @raycast.authorURL https://github.com/nokki-y
 
@@ -28,14 +28,18 @@ else
 fi
 
 # 環境変数チェック
-if [ -z "$METALIFE_SPACE_ID" ]; then
-    echo "❌ エラー: METALIFE_SPACE_ID が設定されていません"
-    echo "💡 .env ファイルに METALIFE_SPACE_ID を設定してください"
+if [ -z "$OKAN_SPREADSHEET_ID" ]; then
+    echo "❌ エラー: OKAN_SPREADSHEET_ID が設定されていません"
+    echo "💡 .env ファイルに OKAN_SPREADSHEET_ID を設定してください"
     exit 1
 fi
 
-# MetaLife URL
-URL="https://app.metalife.co.jp/spaces/${METALIFE_SPACE_ID}"
+# スプレッドシートURL
+if [ -n "$OKAN_SHEET_GID" ]; then
+    URL="https://docs.google.com/spreadsheets/d/${OKAN_SPREADSHEET_ID}/edit?gid=${OKAN_SHEET_GID}#gid=${OKAN_SHEET_GID}"
+else
+    URL="https://docs.google.com/spreadsheets/d/${OKAN_SPREADSHEET_ID}/edit"
+fi
 
 # ChromeでURLを開く（既存のタブがあればアクティブにする）
 osascript <<EOF
@@ -69,7 +73,7 @@ end tell
 EOF
 
 if [ $? -eq 0 ]; then
-    echo "🌐 MetaLifeを開きました"
+    echo "📊 おかんスプレッドシートを開きました"
 else
     echo "❌ エラー: Chromeの起動に失敗しました"
     exit 1
