@@ -19,11 +19,31 @@ Raycast → "Open MetaLife"
 - 環境変数で管理されたスペースIDを使用
 - `.env`ファイルから設定を読み込み
 - オプションで別のURLを指定可能
+- 既存のタブがあれば自動的にアクティブにする（新規タブを開かない）
+- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
 
 **セットアップ**:
 
 1. `.env.example`を`.env`にコピー
 2. `.env`ファイルに実際のスペースIDを設定
+
+### 𝕏 open_x.sh
+
+X（旧Twitter）のホームをChromeで開く
+
+**使用方法**:
+
+```text
+Raycast → "Open X"
+```
+
+**機能**:
+
+- X（https://x.com）のホームページを開く
+- ドメイン一致で既存のXタブを検索してアクティブにする
+  - 例: `/home`、`/messages`、`/notifications` など、どのXページでもアクティブになる
+- Xのタブがない場合のみ新規タブで開く
+- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
 
 ### ☕ prevent_sleep.sh
 
@@ -76,7 +96,7 @@ Raycast → "Prevent Sleep Timer" → 分数を入力（例: 30, 60, 120）
 - macOS
 - Raycast
 - Bash
-- Google Chrome（open_metalife.sh使用時）
+- Google Chrome（open_metalife.sh、open_x.sh使用時）
 
 ## 環境変数
 

@@ -2,7 +2,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title Open MetaLife
+# @raycast.title Open X
 # @raycast.mode silent
 
 # Optional parameters:
@@ -11,31 +11,11 @@
 # @raycast.argument1 { "type": "text", "placeholder": "URL (optional)", "optional": true }
 
 # Documentation:
-# @raycast.description MetaLifeのスペースをChromeで開きます
+# @raycast.description X (旧Twitter) をChromeで開きます
 # @raycast.author nokki_y
 
-# スクリプトのディレクトリを取得
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# .envファイルを読み込む
-if [ -f "$SCRIPT_DIR/.env" ]; then
-    source "$SCRIPT_DIR/.env"
-else
-    echo "❌ エラー: .env ファイルが見つかりません"
-    echo "💡 .env.example をコピーして .env を作成し、設定してください:"
-    echo "   cp $SCRIPT_DIR/.env.example $SCRIPT_DIR/.env"
-    exit 1
-fi
-
-# 環境変数チェック
-if [ -z "$METALIFE_SPACE_ID" ]; then
-    echo "❌ エラー: METALIFE_SPACE_ID が設定されていません"
-    echo "💡 .env ファイルに METALIFE_SPACE_ID を設定してください"
-    exit 1
-fi
-
-# デフォルトのMetaLife URL
-DEFAULT_URL="https://app.metalife.co.jp/spaces/${METALIFE_SPACE_ID}"
+# デフォルトURL
+DEFAULT_URL="https://x.com/home"
 
 # 引数があればそれを使用、なければデフォルトURL
 URL="${1:-$DEFAULT_URL}"
@@ -46,12 +26,13 @@ tell application "Google Chrome"
     activate
     set foundTab to false
     set targetURL to "$URL"
+    set targetDomain to "https://x.com"
 
-    -- すべてのウィンドウとタブを検索
+    -- すべてのウィンドウとタブを検索（ドメイン一致）
     repeat with w in windows
         set tabIndex to 1
         repeat with t in tabs of w
-            if URL of t starts with targetURL then
+            if URL of t starts with targetDomain then
                 set active tab index of w to tabIndex
                 set index of w to 1
                 set foundTab to true
@@ -72,7 +53,7 @@ end tell
 EOF
 
 if [ $? -eq 0 ]; then
-    echo "🌐 MetaLifeを開きました"
+    echo "𝕏 Xを開きました"
 else
     echo "❌ エラー: Chromeの起動に失敗しました"
     exit 1
