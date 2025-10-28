@@ -21,9 +21,9 @@ if [ -n "$1" ] && [ "$1" != "" ]; then
     URL="https://github.com/$1"
     SEARCH_MODE="exact"
 else
-    # Home選択時：nokki-yのプロフィール（ドメイン一致で検索）
+    # Home選択時：nokki-yのプロフィール（URLプレフィックス一致で検索）
     URL="https://github.com/nokki-y"
-    SEARCH_MODE="domain"
+    SEARCH_MODE="prefix"
 fi
 
 # ChromeでURLを開く（既存のタブがあればアクティブにする）
@@ -47,8 +47,8 @@ tell application "Google Chrome"
                     set isMatch to true
                 end if
             else
-                -- ドメイン一致（ホーム指定時）
-                if URL of t starts with "https://github.com" then
+                -- URLプレフィックス一致（ホーム指定時）
+                if URL of t starts with targetURL then
                     set isMatch to true
                 end if
             end if
