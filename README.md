@@ -21,7 +21,6 @@ Raycastで使用可能なシェルスクリプトコマンドです。
 ### 含まれるスクリプト
 
 - 🌐 **open_metalife.sh** - MetaLifeのスペースを開く
-- 📊 **open_okan.sh** - おかんスプレッドシートを開く
 - 𝕏 **open_x.sh** - X(旧Twitter)を開く
 - 📅 **open_calendar.sh** - Googleカレンダーを開く
 - 📧 **open_mail.sh** - Gmailを開く

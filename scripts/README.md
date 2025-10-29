@@ -16,18 +16,6 @@ MetaLifeのスペースをChromeで開く
 
 ---
 
-### 📊 open_okan.sh
-おかんスプレッドシートをChromeで開く
-
-**使用方法**: `Raycast → "Open おかん"`
-
-**機能**:
-- 環境変数で管理されたスプレッドシートIDとシートGIDを使用
-- 既存タブがあれば自動的にアクティブにする
-- 該当タブがない場合のみ新規タブで開く
-
----
-
 ### 𝕏 open_x.sh
 X(旧Twitter)のホームをChromeで開く
 
@@ -122,10 +110,6 @@ METALIFE_SPACE_ID=your_space_id_here
 
 # Google アカウント
 GOOGLE_ACCOUNT_INDEX=0
-
-# おかんスプレッドシート
-OKAN_SPREADSHEET_ID=your_spreadsheet_id_here
-OKAN_SHEET_GID=your_sheet_gid_here
 ```
 
 詳細は [../.env.example](../.env.example) を参照してください。
