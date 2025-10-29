@@ -19,24 +19,33 @@ npm run release
 release/okan-tasks-raycast/
 ├── dist/                  # ビルド済みの拡張機能
 ├── assets/                # アイコンなどのアセット
-├── .auth/                 # 空のディレクトリ（ユーザーが認証情報を配置）
+├── .auth/                 # 認証情報（token.json, credentials.json含む）
 ├── package.json           # メタデータ
 └── INSTALL.md             # エンドユーザー向けインストール手順
 ```
 
+**重要**: `.auth/`ディレクトリには認証済みの情報が含まれています。
+
 ## 🚀 配布手順
 
-### 方法1: Zipファイルで配布（推奨）
+### Zipファイルで配布（推奨）
 
 ```bash
 cd release
 zip -r okan-tasks-raycast.zip okan-tasks-raycast/
 ```
 
-配布先に以下を送付：
-1. `okan-tasks-raycast.zip`
-2. `credentials.json`（別ファイルとして）
-3. インストール手順（下記参照）
+配布先に送付：
+- `okan-tasks-raycast.zip` のみ
+
+**メリット**:
+- ✅ 配布先での認証作業が不要
+- ✅ credentials.jsonを個別共有する必要なし
+- ✅ セットアップが非常に簡単
+
+**注意**:
+- ⚠️ 認証情報が含まれるため、信頼できる相手のみに配布
+- ⚠️ 配布先は同じGoogleアカウントのアクセストークンを共有することになります
 
 ### 方法2: 共有フォルダで配布
 
@@ -54,29 +63,12 @@ zip -r okan-tasks-raycast.zip okan-tasks-raycast/
    - `okan-tasks-raycast.zip` をダウンロードして解凍
    - または共有フォルダから `okan-tasks-raycast` フォルダをコピー
 
-2. **認証情報の配置**
-   ```bash
-   # okan-tasks-raycastフォルダに移動
-   cd okan-tasks-raycast
-
-   # credentials.jsonを.authディレクトリに配置
-   mv ~/Downloads/credentials.json .auth/
-   ```
-
-3. **初回認証**
-   - ブラウザで以下のURLを開く: https://accounts.google.com/o/oauth2/auth?...
-   - Googleアカウントでログイン
-   - アクセスを許可
-   - 表示される認証コードをメモ
-
-   **注意**: 認証URLと認証コードの入力方法は別途指示
-
-4. **Raycastにインストール**
+2. **Raycastにインストール**
    - Raycast Preferences → Extensions → **+** → **Add Extension**
    - `okan-tasks-raycast` フォルダを選択
    - **Install Extension** をクリック
 
-5. **設定**
+3. **設定**
    - Raycastで `Check Okan Tasks` を検索
    - ⌘ + K → Preferences で設定画面を開く
    - 以下を入力（管理者から共有された値を使用）:
@@ -85,7 +77,7 @@ zip -r okan-tasks-raycast.zip okan-tasks-raycast/
      - Sheet GID
      - My Name（自分の名前）
 
-6. **動作確認**
+4. **動作確認**
    - Raycastで `Check Okan Tasks` を実行
    - タスクが表示されればOK！
 
@@ -93,18 +85,26 @@ zip -r okan-tasks-raycast.zip okan-tasks-raycast/
 
 ## 🔐 認証情報の管理
 
-### credentials.jsonの共有方法
+### セキュリティに関する重要な注意
 
-**重要**: `credentials.json` は機密情報です。安全に共有してください。
+配布パッケージには**あなたのGoogleアカウントで認証されたトークン**が含まれています。
 
-推奨方法：
-- 暗号化されたメッセージング（Signal、1Passwordなど）
-- パスワード付きZip
-- 企業の機密情報共有システム
+**これが意味すること**:
+- ✅ 配布先は認証作業不要で即座に使用可能
+- ⚠️ 配布先はあなたのGoogleアカウントでスプレッドシートにアクセス
+- ⚠️ 配布先が信頼できる相手であることを確認してください
 
-### 複数ユーザーでの共有
+### 推奨される配布方法
 
-現在の設定（デスクトップアプリ）では、同じ `credentials.json` を複数ユーザーで共有できます。各ユーザーは初回認証時に自分のGoogleアカウントで認証を行い、個別の `token.json` が作成されます。
+1. **社内・チーム内での配布**: 問題なし
+2. **信頼できる個人への配布**: 問題なし
+3. **不特定多数への配布**: 非推奨
+
+### アクセス権限
+
+配布される認証情報の権限:
+- スプレッドシートの**読み取り専用**（`spreadsheets.readonly`）
+- 書き込みや削除はできません
 
 ## 🔄 アップデート配布
 
