@@ -1,0 +1,83 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "raycast-okan",
+  "title": "Okan Tasks",
+  "description": "おかんスプレッドシートの未完了タスクを確認",
+  "icon": "icon.png",
+  "author": "nokki-y",
+  "categories": [
+    "Productivity"
+  ],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "check-okan-tasks-test",
+      "title": "Check Okan Tasks Test",
+      "subtitle": "テストコマンド",
+      "description": "拡張機能の動作テスト",
+      "mode": "view"
+    },
+    {
+      "name": "check-okan-tasks",
+      "title": "Check Okan Tasks",
+      "subtitle": "未完了タスク確認",
+      "description": "おかんスプレッドシートの未完了タスクを表示",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "spreadsheetId",
+      "type": "textfield",
+      "required": true,
+      "title": "スプレッドシートID",
+      "description": "おかんスプレッドシートのID",
+      "default": "1D5YCfbMp6pZ5G4SiwWtzFybcJ9b6cE5CrJcyplyBTBg"
+    },
+    {
+      "name": "sheetName",
+      "type": "textfield",
+      "required": true,
+      "title": "シート名",
+      "description": "タスクが記載されているシートの名前",
+      "default": "【Todo】PD室タスク一覧"
+    },
+    {
+      "name": "sheetGid",
+      "type": "textfield",
+      "required": true,
+      "title": "シートGID",
+      "description": "シートのGID(URLのgid=の後の数字)",
+      "default": "252072688"
+    },
+    {
+      "name": "myName",
+      "type": "textfield",
+      "required": true,
+      "title": "あなたの名前",
+      "description": "スプレッドシートの列ヘッダーと完全一致させること",
+      "default": "鵜木 義秀"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.103.5",
+    "@raycast/utils": "^2.2.1",
+    "dotenv": "^17.2.3",
+    "googleapis": "^164.1.0"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.1.1",
+    "@types/node": "^24.9.2",
+    "eslint": "^9.38.0",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "lint": "ray lint",
+    "fix-lint": "ray lint --fix",
+    "setup-auth": "ts-node src/setup-auth.ts"
+  }
+}

@@ -1,200 +1,123 @@
 # raycast_conf
 
-Raycast用のカスタムスクリプトコレクション
+Raycast用のカスタムスクリプトと拡張機能のコレクション
 
-## スクリプト一覧
+## 📁 プロジェクト構成
 
-### 🌐 open_metalife.sh
-
-MetaLifeのスペースをChromeで開く
-
-**使用方法**:
-
-```text
-Raycast → "Open MetaLife"
+```
+raycast_conf/
+├── scripts/              # スクリプトコマンド(.sh)
+├── extensions/           # Raycast拡張機能(Node.js/TypeScript)
+│   └── okan-tasks/      # おかんタスク確認拡張
+├── .env                  # 環境変数(Git管理外)
+├── .env.example         # 環境変数のテンプレート
+└── README.md
 ```
 
-**機能**:
+## 🚀 スクリプトコマンド
 
-- 環境変数で管理されたスペースIDを使用
-- `.env`ファイルから設定を読み込み
-- 既存の同じMetaLifeタブがあれば自動的にアクティブにする（URL完全一致）
-- 該当タブがない場合のみ新規タブで開く
-- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
+Raycastで使用可能なシェルスクリプトコマンドです。
+
+### 含まれるスクリプト
+
+- 🌐 **open_metalife.sh** - MetaLifeのスペースを開く
+- 📊 **open_okan.sh** - おかんスプレッドシートを開く
+- 𝕏 **open_x.sh** - X(旧Twitter)を開く
+- 📅 **open_calendar.sh** - Googleカレンダーを開く
+- 📧 **open_mail.sh** - Gmailを開く
+- 🐙 **open_github.sh** - GitHubを開く
+- 📹 **activate_meet.sh** - Google Meetタブをアクティブ化
+- ☕ **prevent_sleep.sh** - スリープ防止
+- ⏰ **prevent_sleep_timer.sh** - タイマー付きスリープ防止
+
+詳細は [scripts/README.md](scripts/README.md) を参照してください。
+
+---
+
+## 🔧 拡張機能
+
+### 📊 Okan Tasks (extensions/okan-tasks)
+
+おかんスプレッドシートの未完了タスクをRaycast上で確認できる拡張機能
+
+**使用方法**: `Raycast → "Check Okan Tasks"`
+
+**機能**:
+- Google Sheets APIを使用してリアルタイムにタスクを取得
+- あなたの未完了タスクのみを表示
+- タスクを選択すると該当行のスプレッドシートが開く
+- キーボードショートカット対応
+  - `Enter`: スプレッドシートで開く
+  - `⌘ + C`: タスク名をコピー
+  - `⌘ + Shift + C`: URLをコピー
 
 **セットアップ**:
+詳細は [extensions/okan-tasks/README.md](extensions/okan-tasks/README.md) を参照
 
-1. `.env.example`を`.env`にコピー
-2. `.env`ファイルに実際のスペースIDを設定
+---
 
-### 📊 open_okan.sh
+## 📝 セットアップ
 
-おかんスプレッドシートをChromeで開く
-
-**使用方法**:
-
-```text
-Raycast → "Open おかん"
+### 1. リポジトリのクローン
+```bash
+git clone https://github.com/nokki-y/raycast_conf.git
+cd raycast_conf
 ```
 
-**機能**:
-
-- 環境変数で管理されたスプレッドシートIDとシートGIDを使用
-- `.env`ファイルから設定を読み込み
-- 既存の同じスプレッドシートタブがあれば自動的にアクティブにする（URL完全一致）
-- 該当タブがない場合のみ新規タブで開く
-- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
-
-**セットアップ**:
-
-1. `.env.example`を`.env`にコピー
-2. `.env`ファイルに実際のスプレッドシートIDとシートGIDを設定
-
-### 𝕏 open_x.sh
-
-X（旧Twitter）のホームをChromeで開く
-
-**使用方法**:
-
-```text
-Raycast → "Open X"
+### 2. 環境変数の設定
+```bash
+cp .env.example .env
+# .env ファイルを編集して実際の値を設定
 ```
 
-**機能**:
+### 3. Raycastの設定
 
-- X（https://x.com）のホームページを開く
-- ドメイン一致で既存のXタブを検索してアクティブにする
-  - 例: `/home`、`/messages`、`/notifications` など、どのXページでもアクティブになる
-- Xのタブがない場合のみ新規タブで開く
-- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
+#### スクリプトコマンド
+1. Raycast Preferences → Extensions → Script Commands
+2. 「Add Directories」をクリック
+3. `raycast_conf/scripts` ディレクトリを選択
 
-### 📅 open_calendar.sh
+#### 拡張機能
+各拡張機能のREADMEを参照してください。
 
-GoogleカレンダーをChromeで開く
+---
 
-**使用方法**:
+## 🌍 環境変数
 
-```text
-Raycast → "Open Google Calendar"
+`.env`ファイルで以下の環境変数を設定できます:
+
+```bash
+# MetaLife
+METALIFE_SPACE_ID=your_space_id_here
+
+# Google アカウント
+GOOGLE_ACCOUNT_INDEX=0
+
+# おかんスプレッドシート
+OKAN_SPREADSHEET_ID=your_spreadsheet_id_here
+OKAN_SHEET_GID=your_sheet_gid_here
+OKAN_SHEET_NAME=【Todo】PD室タスク一覧
+OKAN_MY_NAME=your_name_here
 ```
 
-**機能**:
+詳細は [.env.example](.env.example) を参照してください。
 
-- Googleカレンダーを開く
-- ドメイン一致で既存のカレンダータブを検索してアクティブにする
-- カレンダーのタブがない場合のみ新規タブで開く
-- 環境変数でGoogleアカウントインデックスを指定可能（デフォルト: 0）
-- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
+---
 
-### 📧 open_mail.sh
-
-GmailをChromeで開く
-
-**使用方法**:
-
-```text
-Raycast → "Open Gmail"
-```
-
-**機能**:
-
-- Gmailの受信トレイを開く
-- ドメイン一致で既存のGmailタブを検索してアクティブにする
-- Gmailのタブがない場合のみ新規タブで開く
-- 環境変数でGoogleアカウントインデックスを指定可能（デフォルト: 0）
-- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
-
-### 🐙 open_github.sh
-
-GitHubをChromeで開く
-
-**使用方法**:
-
-```text
-Raycast → "Open GitHub" → リポジトリを選択
-  - nokki-y: nokki-yのプロフィール
-  - lmi-mcs/survey-hub: survey-hubリポジトリ
-```
-
-**機能**:
-
-- ドロップダウンから開きたいページを選択
-- **nokki-y選択時**: nokki-yのプロフィールを開く（ドメイン一致で既存のGitHubタブを検索）
-- **リポジトリ選択時**: 指定したリポジトリを開く（完全一致で既存タブを検索）
-- 該当タブがない場合のみ新規タブで開く
-- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
-
-### 📹 activate_meet.sh
-
-開いているGoogle Meetタブをアクティブにする
-
-**使用方法**:
-
-```text
-Raycast → "Activate Google Meet"
-```
-
-**機能**:
-
-- Chromeで開いているGoogle Meetタブを検索
-- 見つかった場合、そのタブをアクティブにする
-- タブが見つからない場合は警告メッセージを表示
-- 実行後、Raycastのコマンドウィンドウが自動的に閉じる
-
-### ☕ prevent_sleep.sh
-
-スクリーンセーバーとスリープを防止する
-
-**使用方法**:
-
-- 開始: `Raycast → "Prevent Sleep" → Start`
-- 停止: `Raycast → "Prevent Sleep" → Stop`
-- 状態確認: `Raycast → "Prevent Sleep" → Status`
-
-**機能**:
-
-- macOS標準の`caffeinate`コマンドを使用
-- ディスプレイのスリープとシステムスリープを防止
-- バックグラウンドで動作
-- 重複起動防止機能付き
-
-### ⏰ prevent_sleep_timer.sh
-
-指定時間だけスクリーンセーバーとスリープを防止する
-
-**使用方法**:
-
-```text
-Raycast → "Prevent Sleep Timer" → 分数を入力（例: 30, 60, 120）
-```
-
-**機能**:
-
-- 指定した分数だけスリープを防止
-- 終了予定時刻を表示
-- 自動的に終了
-
-## セットアップ
-
-1. このリポジトリをクローン
-2. 環境変数ファイルを設定（必要に応じて）
-
-   ```bash
-   cp .env.example .env
-   # .env ファイルを編集して実際の値を設定
-   ```
-
-3. Raycastの設定でスクリプトディレクトリとして指定
-4. スクリプトが自動的にRaycastに認識される
-
-## 必要な環境
+## 💻 必要な環境
 
 - macOS
 - Raycast
 - Bash
-- Google Chrome（open_metalife.sh、open_okan.sh、open_x.sh、open_calendar.sh、open_mail.sh、open_github.sh、activate_meet.sh使用時）
+- Google Chrome (ブラウザ操作系スクリプト使用時)
+- Node.js v16以上 (拡張機能使用時)
 
-## 環境変数
+---
 
-秘匿情報は`.env`ファイルで管理されます（Gitには含まれません）。
-`.env.example`を参考に`.env`ファイルを作成してください。
+## 📄 ライセンス
+
+MIT
+
+## 👤 作成者
+
+nokki-y ([@nokki-y](https://github.com/nokki-y))

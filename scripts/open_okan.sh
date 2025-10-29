@@ -18,12 +18,12 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # .envファイルを読み込む
-if [ -f "$SCRIPT_DIR/.env" ]; then
-    source "$SCRIPT_DIR/.env"
+if [ -f "$SCRIPT_DIR/../.env" ]; then
+    source "$SCRIPT_DIR/../.env"
 else
     echo "❌ エラー: .env ファイルが見つかりません"
     echo "💡 .env.example をコピーして .env を作成し、設定してください:"
-    echo "   cp $SCRIPT_DIR/.env.example $SCRIPT_DIR/.env"
+    echo "   cp $SCRIPT_DIR/../.env.example $SCRIPT_DIR/../.env"
     exit 1
 fi
 

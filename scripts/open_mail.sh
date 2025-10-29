@@ -18,8 +18,8 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # .envファイルを読み込む（存在する場合）
-if [ -f "$SCRIPT_DIR/.env" ]; then
-    source "$SCRIPT_DIR/.env"
+if [ -f "$SCRIPT_DIR/../.env" ]; then
+    source "$SCRIPT_DIR/../.env"
 fi
 
 # Googleアカウントインデックス（デフォルト: 0）
