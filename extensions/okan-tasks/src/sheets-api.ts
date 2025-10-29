@@ -25,12 +25,12 @@ interface CredentialsData {
 
 // トークンファイルのパスを取得
 function getTokenPath(): string {
-  return join(environment.assetsPath, "auth/token.json");
+  return join(environment.assetsPath, ".auth/token.json");
 }
 
 // 認証情報ファイルのパスを取得
 function getCredentialsPath(): string {
-  return join(environment.assetsPath, "auth/credentials.json");
+  return join(environment.assetsPath, ".auth/credentials.json");
 }
 
 // トークンをリフレッシュ

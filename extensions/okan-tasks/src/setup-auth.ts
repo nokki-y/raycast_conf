@@ -4,7 +4,7 @@ import * as path from "path";
 import * as readline from "readline";
 
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
-const AUTH_DIR = path.join(__dirname, "..", "assets", "auth");
+const AUTH_DIR = path.join(__dirname, "..", "assets", ".auth");
 const TOKEN_PATH = path.join(AUTH_DIR, "token.json");
 const CREDENTIALS_PATH = path.join(AUTH_DIR, "credentials.json");
 

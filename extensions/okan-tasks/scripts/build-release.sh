@@ -32,15 +32,15 @@ echo "📋 ビルド済み拡張機能をコピー中..."
 mkdir -p "$RELEASE_DIR"
 cp -r "$RAYCAST_BUILD_DIR" "$RELEASE_DIR/$RELEASE_NAME"
 
-# authディレクトリをコピー（認証済みの状態で配布）
+# .authディレクトリをコピー（認証済みの状態で配布）
 echo "🔐 認証情報をコピー中..."
-if [ -d "$PROJECT_DIR/assets/auth" ] && [ -f "$PROJECT_DIR/assets/auth/token.json" ]; then
-    # ビルド済みディレクトリ内のassetsにauthを上書き
+if [ -d "$PROJECT_DIR/assets/.auth" ] && [ -f "$PROJECT_DIR/assets/.auth/token.json" ]; then
+    # ビルド済みディレクトリ内のassetsに.authを上書き
     mkdir -p "$RELEASE_DIR/$RELEASE_NAME/assets"
-    cp -r "$PROJECT_DIR/assets/auth" "$RELEASE_DIR/$RELEASE_NAME/assets/"
+    cp -r "$PROJECT_DIR/assets/.auth" "$RELEASE_DIR/$RELEASE_NAME/assets/"
     echo "✅ 認証情報をコピーしました（エンドユーザーは認証不要）"
 else
-    echo "⚠️  警告: assets/auth/token.json が見つかりません"
+    echo "⚠️  警告: assets/.auth/token.json が見つかりません"
     echo "   npm run setup-auth を先に実行してください"
     exit 1
 fi
