@@ -16,6 +16,14 @@
       "subtitle": "未完了タスク確認",
       "description": "おかんスプレッドシートの未完了タスクを表示",
       "mode": "view"
+    },
+    {
+      "name": "notify-okan-tasks",
+      "title": "Notify Okan Tasks",
+      "subtitle": "タスク通知",
+      "description": "おかんタスクの通知（バックグラウンド実行）",
+      "mode": "no-view",
+      "interval": "3m"
     }
   ],
   "preferences": [

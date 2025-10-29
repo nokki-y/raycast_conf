@@ -24,8 +24,14 @@ npm run build
 echo "📋 配布用ファイルをコピー中..."
 mkdir -p "$RELEASE_DIR/$RELEASE_NAME"
 
-# distディレクトリ全体をコピー
-cp -r "$PROJECT_DIR/dist" "$RELEASE_DIR/$RELEASE_NAME/"
+# distディレクトリ全体をコピー（Raycastビルド後の場所から）
+RAYCAST_BUILD_DIR="$HOME/.config/raycast/extensions/raycast-okan"
+if [ -d "$RAYCAST_BUILD_DIR" ]; then
+    cp -r "$RAYCAST_BUILD_DIR" "$RELEASE_DIR/$RELEASE_NAME/dist"
+else
+    echo "❌ エラー: Raycastビルド出力が見つかりません: $RAYCAST_BUILD_DIR"
+    exit 1
+fi
 
 # assetsをコピー
 cp -r "$PROJECT_DIR/assets" "$RELEASE_DIR/$RELEASE_NAME/"

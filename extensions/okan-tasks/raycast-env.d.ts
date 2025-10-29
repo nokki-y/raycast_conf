@@ -24,10 +24,14 @@ declare type Preferences = ExtensionPreferences
 declare namespace Preferences {
   /** Preferences accessible in the `check-okan-tasks` command */
   export type CheckOkanTasks = ExtensionPreferences & {}
+  /** Preferences accessible in the `notify-okan-tasks` command */
+  export type NotifyOkanTasks = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
   /** Arguments passed to the `check-okan-tasks` command */
   export type CheckOkanTasks = {}
+  /** Arguments passed to the `notify-okan-tasks` command */
+  export type NotifyOkanTasks = {}
 }
 
