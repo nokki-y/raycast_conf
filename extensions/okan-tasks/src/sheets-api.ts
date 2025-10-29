@@ -5,16 +5,18 @@
 
 import { readFileSync } from "fs";
 import { join } from "path";
+import { environment } from "@raycast/api";
 
 // .auth/token.jsonからアクセストークンを読み込む
 function getAccessToken(): string {
   try {
-    const tokenPath = join(__dirname, "../.auth/token.json");
+    // Raycastの拡張機能ディレクトリから.authディレクトリを参照
+    const tokenPath = join(environment.assetsPath, "../.auth/token.json");
     const tokenData = JSON.parse(readFileSync(tokenPath, "utf-8"));
     return tokenData.access_token;
   } catch (error) {
     throw new Error(
-      "アクセストークンの読み込みに失敗しました。.auth/token.jsonが存在するか確認してください。"
+      `アクセストークンの読み込みに失敗しました。.auth/token.jsonが存在するか確認してください。パス: ${join(environment.assetsPath, "../.auth/token.json")}`
     );
   }
 }
