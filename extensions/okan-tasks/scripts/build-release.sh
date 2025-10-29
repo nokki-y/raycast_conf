@@ -20,35 +20,34 @@ echo "📦 拡張機能をビルド中..."
 cd "$PROJECT_DIR"
 npm run build
 
-# 配布用ディレクトリに必要なファイルをコピー
-echo "📋 配布用ファイルをコピー中..."
-mkdir -p "$RELEASE_DIR/$RELEASE_NAME"
-
-# distディレクトリ全体をコピー（Raycastビルド後の場所から）
+# Raycastビルド済みディレクトリをベースにする
 RAYCAST_BUILD_DIR="$HOME/.config/raycast/extensions/raycast-okan"
-if [ -d "$RAYCAST_BUILD_DIR" ]; then
-    cp -r "$RAYCAST_BUILD_DIR" "$RELEASE_DIR/$RELEASE_NAME/dist"
-else
+if [ ! -d "$RAYCAST_BUILD_DIR" ]; then
     echo "❌ エラー: Raycastビルド出力が見つかりません: $RAYCAST_BUILD_DIR"
+    echo "   拡張機能を一度ビルドしてください"
     exit 1
 fi
 
-# assetsをコピー
-cp -r "$PROJECT_DIR/assets" "$RELEASE_DIR/$RELEASE_NAME/"
+echo "📋 ビルド済み拡張機能をコピー中..."
+mkdir -p "$RELEASE_DIR"
+cp -r "$RAYCAST_BUILD_DIR" "$RELEASE_DIR/$RELEASE_NAME"
 
-# package.jsonをコピー（メタデータとして必要）
-cp "$PROJECT_DIR/package.json" "$RELEASE_DIR/$RELEASE_NAME/"
-
-# .authディレクトリをコピー（認証済みの状態で配布）
+# authディレクトリをコピー（認証済みの状態で配布）
 echo "🔐 認証情報をコピー中..."
-if [ -d "$PROJECT_DIR/.auth" ] && [ -f "$PROJECT_DIR/.auth/token.json" ]; then
-    cp -r "$PROJECT_DIR/.auth" "$RELEASE_DIR/$RELEASE_NAME/"
+if [ -d "$PROJECT_DIR/auth" ] && [ -f "$PROJECT_DIR/auth/token.json" ]; then
+    # ビルド済みディレクトリ内のauthを上書き
+    cp -r "$PROJECT_DIR/auth" "$RELEASE_DIR/$RELEASE_NAME/"
     echo "✅ 認証情報をコピーしました（エンドユーザーは認証不要）"
 else
-    echo "⚠️  警告: .auth/token.json が見つかりません"
+    echo "⚠️  警告: auth/token.json が見つかりません"
     echo "   npm run setup-auth を先に実行してください"
     exit 1
 fi
+
+# インストールスクリプトをコピー
+echo "📝 インストールスクリプトをコピー中..."
+cp "$SCRIPT_DIR/install.sh" "$RELEASE_DIR/$RELEASE_NAME/"
+chmod +x "$RELEASE_DIR/$RELEASE_NAME/install.sh"
 
 # ユーザー向けガイドを作成
 cat > "$RELEASE_DIR/$RELEASE_NAME/INSTALL.md" <<'EOF'
@@ -59,17 +58,27 @@ cat > "$RELEASE_DIR/$RELEASE_NAME/INSTALL.md" <<'EOF'
 - macOS
 - Raycast がインストール済み
 
-## 🚀 インストール手順
+## 🚀 インストール手順（推奨）
 
-### ステップ1: Raycastに拡張機能をインストール
+### 方法1: インストールスクリプトを使用（簡単）
 
-1. Raycast Preferences を開く (⌘ + ,)
-2. **Extensions** タブを選択
-3. **+** ボタン → **Add Extension** をクリック
-4. この `okan-tasks-raycast` フォルダを選択
-5. **Install Extension** をクリック
+1. Zipファイルを解凍
+2. ターミナルで解凍したフォルダに移動
+3. 以下のコマンドを実行:
+   ```bash
+   ./install.sh
+   ```
+4. Raycastが自動的に再起動されます
 
 **注意**: 認証情報は既に含まれているため、認証作業は不要です！
+
+### 方法2: 手動インストール
+
+1. 解凍したフォルダ全体を以下の場所にコピー:
+   ```bash
+   ~/.config/raycast/extensions/okan-tasks-production
+   ```
+2. Raycastを再起動
 
 ### ステップ2: 設定
 

@@ -11,10 +11,10 @@ node_modules/
 dist/
 
 # Google OAuth credentials and tokens
-.auth/credentials.json
-.auth/token.json
-extensions/okan-tasks/.auth/credentials.json
-extensions/okan-tasks/.auth/token.json
+auth/credentials.json
+auth/token.json
+extensions/okan-tasks/auth/credentials.json
+extensions/okan-tasks/auth/token.json
 
 # Release packages (contains credentials)
 extensions/okan-tasks/release/
