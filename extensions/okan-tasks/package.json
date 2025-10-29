@@ -11,13 +11,6 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "check-okan-tasks-test",
-      "title": "Check Okan Tasks Test",
-      "subtitle": "テストコマンド",
-      "description": "拡張機能の動作テスト",
-      "mode": "view"
-    },
-    {
       "name": "check-okan-tasks",
       "title": "Check Okan Tasks",
       "subtitle": "未完了タスク確認",

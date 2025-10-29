@@ -22,15 +22,11 @@ type ExtensionPreferences = {
 declare type Preferences = ExtensionPreferences
 
 declare namespace Preferences {
-  /** Preferences accessible in the `check-okan-tasks-test` command */
-  export type CheckOkanTasksTest = ExtensionPreferences & {}
   /** Preferences accessible in the `check-okan-tasks` command */
   export type CheckOkanTasks = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
-  /** Arguments passed to the `check-okan-tasks-test` command */
-  export type CheckOkanTasksTest = {}
   /** Arguments passed to the `check-okan-tasks` command */
   export type CheckOkanTasks = {}
 }
