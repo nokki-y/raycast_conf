@@ -32,7 +32,7 @@
       "required": true,
       "title": "スプレッドシートID",
       "description": "おかんスプレッドシートのID",
-      "default": "1D5YCfbMp6pZ5G4SiwWtzFybcJ9b6cE5CrJcyplyBTBg"
+      "default": "your_spreadsheet_id_here"
     },
     {
       "name": "sheetName",
@@ -40,7 +40,7 @@
       "required": true,
       "title": "シート名",
       "description": "タスクが記載されているシートの名前",
-      "default": "【Todo】PD室タスク一覧"
+      "default": "your_sheet_name_here"
     },
     {
       "name": "sheetGid",
@@ -48,7 +48,7 @@
       "required": true,
       "title": "シートGID",
       "description": "シートのGID(URLのgid=の後の数字)",
-      "default": "252072688"
+      "default": "0"
     },
     {
       "name": "myName",
@@ -56,7 +56,7 @@
       "required": true,
       "title": "あなたの名前",
       "description": "スプレッドシートの列ヘッダーと完全一致させること",
-      "default": "鵜木 義秀"
+      "default": "your_name_here"
     }
   ],
   "dependencies": {

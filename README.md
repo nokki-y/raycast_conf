@@ -96,7 +96,7 @@ GOOGLE_ACCOUNT_INDEX=0
 # おかんスプレッドシート
 OKAN_SPREADSHEET_ID=your_spreadsheet_id_here
 OKAN_SHEET_GID=your_sheet_gid_here
-OKAN_SHEET_NAME=【Todo】PD室タスク一覧
+OKAN_SHEET_NAME=your_sheet_name_here
 OKAN_MY_NAME=your_name_here
 ```
 
