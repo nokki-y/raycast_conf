@@ -42,16 +42,18 @@ Raycastで使用可能なシェルスクリプトコマンドです。
 **使用方法**: `Raycast → "Check Okan Tasks"`
 
 **機能**:
-- Google Sheets APIを使用してリアルタイムにタスクを取得
-- あなたの未完了タスクのみを表示
-- タスクを選択すると該当行のスプレッドシートが開く
+- ✅ **期限フィルタリング**: 期限切れ + 2営業日以内のタスクのみ表示
+- ✅ **ステータス自動判定**: 「完了」「対象外」を自動除外
+- ✅ **直接編集**: タスクをクリックして該当セルで直接スプレッドシートを開く
+- ✅ **自動トークン更新**: アクセストークンは自動的にリフレッシュ（手動更新不要）
 - キーボードショートカット対応
   - `Enter`: スプレッドシートで開く
   - `⌘ + C`: タスク名をコピー
   - `⌘ + Shift + C`: URLをコピー
 
 **セットアップ**:
-詳細は [extensions/okan-tasks/README.md](extensions/okan-tasks/README.md) を参照
+- 開発者向け: [extensions/okan-tasks/README.md](extensions/okan-tasks/README.md)
+- 配布先向け: [extensions/okan-tasks/SETUP_GUIDE.md](extensions/okan-tasks/SETUP_GUIDE.md)
 
 ---
 

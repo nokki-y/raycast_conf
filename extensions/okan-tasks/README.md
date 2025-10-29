@@ -81,22 +81,17 @@ npm run setup-auth
 
 成功すると、`extensions/okan-tasks/.auth/token.json` にアクセストークンとリフレッシュトークンが保存されます。
 
-#### 2.3 アクセストークンの取得
-
-`token.json` から `access_token` をコピーして、`src/sheets-api.ts` の `ACCESS_TOKEN` に貼り付けます：
-
-```typescript
-// src/sheets-api.ts
-const ACCESS_TOKEN = "ya29.a0..."; // ここに貼り付け
-```
-
 **重要**: アクセストークンは自動的にリフレッシュされます。手動で更新する必要はありません。
 
-開発中にトークンを手動で同期したい場合：
+#### 2.3 認証情報の同期
+
+開発モードとRaycast拡張ディレクトリに認証情報を同期します：
 
 ```bash
 npm run sync-auth
 ```
+
+このコマンドは、`.auth/`ディレクトリの内容をRaycastの拡張ディレクトリにコピーします。
 
 ### 3. Raycast Preferences の設定
 
@@ -175,14 +170,18 @@ npm run sync-auth
 extensions/okan-tasks/
 ├── src/
 │   ├── check-okan-tasks.tsx    # メインのRaycastコマンド
-│   └── sheets-api.ts            # Google Sheets REST API呼び出し
+│   ├── sheets-api.ts            # Google Sheets REST API呼び出し（自動トークンリフレッシュ機能付き）
+│   └── setup-auth.ts            # OAuth認証セットアップスクリプト
+├── scripts/
+│   └── sync-auth.sh             # 認証情報同期スクリプト
 ├── .auth/                       # 認証情報（Gitで管理しない）
 │   ├── credentials.json         # OAuth クライアント情報
 │   └── token.json               # アクセストークン・リフレッシュトークン
 ├── assets/
 │   └── icon.png                 # 拡張機能のアイコン
 ├── package.json
-└── README.md
+├── README.md                    # 開発者向けドキュメント
+└── SETUP_GUIDE.md               # 配布先向けセットアップガイド
 ```
 
 ## 技術仕様

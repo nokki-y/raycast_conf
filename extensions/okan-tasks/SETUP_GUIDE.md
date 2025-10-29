@@ -53,6 +53,16 @@ npm run setup-auth
 
 成功すると、`.auth/token.json` が自動的に作成されます。
 
+#### 3-3. 認証情報の同期
+
+認証情報をRaycast拡張ディレクトリに同期します：
+
+```bash
+npm run sync-auth
+```
+
+このコマンドは、`.auth/`ディレクトリの内容を`~/.config/raycast/extensions/raycast-okan/.auth/`にコピーします。
+
 ### ステップ4: Raycast Preferencesの設定
 
 拡張機能を開発モードで起動：
