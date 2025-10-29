@@ -52,11 +52,15 @@ async function authorize() {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-      fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens));
+      fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens, null, 2));
 
       console.log("\n✅ 認証が完了しました!");
       console.log(`トークンを保存しました: ${TOKEN_PATH}`);
-      console.log("\nこれでRaycast拡張機能を使用できます。");
+      console.log("\n📋 次のステップ:");
+      console.log("1. npm run dev を実行して拡張機能を起動");
+      console.log("2. Raycastで 'Check Okan Tasks' を検索");
+      console.log("3. 拡張機能の設定を行う (Spreadsheet ID, Sheet Name, My Name など)");
+      console.log("\n✨ トークンは自動的にリフレッシュされます。手動更新は不要です。");
     } catch (error) {
       console.error("\n❌ 認証に失敗しました:", error);
       process.exit(1);

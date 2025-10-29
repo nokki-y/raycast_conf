@@ -71,6 +71,7 @@
     "dev": "ray develop",
     "lint": "ray lint",
     "fix-lint": "ray lint --fix",
-    "setup-auth": "ts-node src/setup-auth.ts"
+    "setup-auth": "ts-node src/setup-auth.ts",
+    "sync-auth": "bash scripts/sync-auth.sh"
   }
 }

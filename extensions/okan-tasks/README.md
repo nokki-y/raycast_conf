@@ -8,6 +8,7 @@
 - ✅ **ステータス自動判定**: 「完了」「対象外」を自動除外
 - ✅ **直接編集**: タスクをクリックして該当セルで直接スプレッドシートを開く
 - ✅ **軽量実装**: Google Sheets REST APIで高速動作
+- ✅ **自動トークン更新**: アクセストークンは自動的にリフレッシュされます（手動更新不要）
 
 ## 前提条件
 
@@ -89,15 +90,12 @@ npm run setup-auth
 const ACCESS_TOKEN = "ya29.a0..."; // ここに貼り付け
 ```
 
-**注意**: アクセストークンは約1時間で期限切れになります。期限切れの場合は、以下のコマンドで更新できます：
+**重要**: アクセストークンは自動的にリフレッシュされます。手動で更新する必要はありません。
+
+開発中にトークンを手動で同期したい場合：
 
 ```bash
-curl -X POST https://oauth2.googleapis.com/token \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "client_id=YOUR_CLIENT_ID" \
-  -d "client_secret=YOUR_CLIENT_SECRET" \
-  -d "refresh_token=YOUR_REFRESH_TOKEN" \
-  -d "grant_type=refresh_token"
+npm run sync-auth
 ```
 
 ### 3. Raycast Preferences の設定
@@ -145,7 +143,13 @@ npm run dev
 
 ### エラー: 401 Unauthorized
 
-アクセストークンの期限が切れています。リフレッシュトークンを使って新しいアクセストークンを取得し、`src/sheets-api.ts` を更新してください。
+通常、このエラーは発生しません（自動リフレッシュ機能があるため）。もし発生した場合：
+
+```bash
+npm run sync-auth
+```
+
+を実行してトークンを同期してください。
 
 ### エラー: 自分の列が見つかりません
 
@@ -209,13 +213,16 @@ extensions/okan-tasks/
   - `credentials.json`: OAuth クライアント情報
   - `token.json`: アクセストークン・リフレッシュトークン
 - これらのファイルは`.gitignore`に含まれており、Gitにコミットされません
-- アクセストークンは約1時間で期限切れになります
-- 期限切れ時はリフレッシュトークンで更新してください
+- アクセストークンは自動的にリフレッシュされます（手動更新不要）
 
 ## 今後の改善案
 
-- [ ] アクセストークンの自動更新機能
+- [x] アクセストークンの自動更新機能 ✅
 - [ ] 期日による並び替え
 - [ ] タスクの優先度表示
 - [ ] デスクトップ通知機能
 - [ ] 複数シート対応
+
+## 配布について
+
+この拡張機能を他のユーザーに配布する場合は、[SETUP_GUIDE.md](SETUP_GUIDE.md) を参照してください。
