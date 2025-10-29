@@ -15,3 +15,7 @@ dist/
 .auth/token.json
 extensions/okan-tasks/.auth/credentials.json
 extensions/okan-tasks/.auth/token.json
+
+# Release packages (contains credentials)
+extensions/okan-tasks/release/
+*.zip
