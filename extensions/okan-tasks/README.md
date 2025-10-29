@@ -224,4 +224,16 @@ extensions/okan-tasks/
 
 ## 配布について
 
-この拡張機能を他のユーザーに配布する場合は、[SETUP_GUIDE.md](SETUP_GUIDE.md) を参照してください。
+### ビルド済みパッケージで配布（推奨）
+
+エンドユーザーに開発環境を要求しない方式：
+
+```bash
+npm run release
+```
+
+詳細は [DISTRIBUTION_GUIDE.md](DISTRIBUTION_GUIDE.md) を参照してください。
+
+### ソースコードから配布（開発者向け）
+
+開発環境がある技術者向けには、[SETUP_GUIDE.md](SETUP_GUIDE.md) を参照してもらいます。
