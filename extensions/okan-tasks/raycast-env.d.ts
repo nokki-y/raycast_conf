@@ -17,7 +17,7 @@ type ExtensionPreferences = {
   /** あなたの名前 - スプレッドシートの列ヘッダーと完全一致させること */
   "myName": string,
   /** 通知間隔 - 通知を送る間隔（デフォルト: 1時間） */
-  "notificationInterval": "0.167" | "30" | "60" | "120" | "240"
+  "notificationInterval": "1" | "30" | "60" | "120" | "240"
 }
 
 /** Preferences accessible in all the extension's commands */

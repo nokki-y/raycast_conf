@@ -23,7 +23,7 @@
       "subtitle": "タスク通知",
       "description": "おかんタスクの通知（バックグラウンド実行）",
       "mode": "no-view",
-      "interval": "1h"
+      "interval": "1m"
     }
   ],
   "preferences": [
@@ -68,8 +68,8 @@
       "default": "60",
       "data": [
         {
-          "title": "10秒（非推奨/テスト用）",
-          "value": "0.167"
+          "title": "1分（非推奨/テスト用）",
+          "value": "1"
         },
         {
           "title": "30分",
