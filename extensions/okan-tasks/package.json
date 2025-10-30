@@ -19,9 +19,9 @@
     },
     {
       "name": "notify-okan-tasks",
-      "title": "Notify Okan Tasks",
-      "subtitle": "タスク通知",
-      "description": "おかんタスクの通知（バックグラウンド実行）",
+      "title": "Okan Tasks - Background Notifications",
+      "subtitle": "バックグラウンド通知設定",
+      "description": "自動通知の設定（このコマンドは直接実行不要です。Background RefreshをONにして通知を有効化してください）",
       "mode": "no-view",
       "interval": "1m"
     }
