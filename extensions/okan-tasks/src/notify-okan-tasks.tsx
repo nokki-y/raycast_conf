@@ -1,4 +1,4 @@
-import { showToast, Toast, getPreferenceValues, LaunchType, launchCommand, showHUD, LocalStorage, environment } from "@raycast/api";
+import { getPreferenceValues, LocalStorage } from "@raycast/api";
 import { getSpreadsheetValues } from "./sheets-api";
 import { execSync } from "child_process";
 
@@ -160,19 +160,6 @@ export default async function Command() {
 
       // macOSシステム通知を送信（音付き）
       execSync(`osascript -e 'display notification "${message}" with title "${title}" sound name "${soundName}"'`);
-
-      // Raycastのトーストも表示
-      await showToast({
-        style: Toast.Style.Failure,
-        title: title,
-        message: messages.join(" / "),
-        primaryAction: {
-          title: "📋 今すぐタスクを確認",
-          onAction: async () => {
-            await launchCommand({ name: "check-okan-tasks", type: LaunchType.UserInitiated });
-          },
-        },
-      });
 
       // 最後の通知時刻を記録
       await LocalStorage.setItem("lastNotificationTime", now.toISOString());
