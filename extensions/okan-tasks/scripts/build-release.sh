@@ -86,7 +86,19 @@ cat > "$RELEASE_DIR/$RELEASE_NAME/INSTALL.md" <<'EOF'
 | **Sheet GID** | シートのGID | URLから: `?gid={ここ}` |
 | **My Name** | あなたの名前 | スプレッドシートの列ヘッダーと完全一致 |
 
-### ステップ3: 動作確認
+### ステップ4: バックグラウンド通知を有効化（推奨）
+
+デスクトップ通知を受け取りたい場合：
+
+1. Raycast Preferences を開く (⌘ + ,)
+2. **Extensions** → **Okan Tasks** → **Notify Okan Tasks** を探す
+3. **Background Refresh** トグルを **ON** にする
+
+これにより以下の通知が有効になります：
+- 平日13時：今日締切のタスク通知
+- 平日10-18時：期日切れ・今日締切のタスク通知（1時間ごと）
+
+### ステップ5: 動作確認
 
 1. Raycastを開く (⌘ + Space)
 2. `Check Okan Tasks` と入力
@@ -98,14 +110,47 @@ cat > "$RELEASE_DIR/$RELEASE_NAME/INSTALL.md" <<'EOF'
 - タスクを選択して Enter → スプレッドシートの該当セルが開きます
 - **完了**・**対象外**のタスクは自動的に除外されます
 - アクセストークンは**自動的にリフレッシュ**されるため、メンテナンス不要
+- **デスクトップ通知**で期日切れタスクを見逃さない（Background Refresh有効時）
 
 ## ❓ トラブルシューティング
 
+### 初期設定を間違えた・やり直したい
+
+設定を変更する方法：
+
+1. Raycastを開く (⌘ + Space)
+2. `Check Okan Tasks` と入力
+3. **⌘ + K** を押してアクションメニューを開く
+4. **「Configure Extension」** を選択
+5. 設定値を修正して保存
+
+または、完全にやり直したい場合：
+
+1. Raycast Preferences (⌘ + ,) → Extensions
+2. **Okan Tasks** を右クリック → **Uninstall**
+3. 再度インポートして設定を入力し直す
+
 ### タスクが表示されない
 
-1. Spreadsheet ID が正しいか
-2. Sheet Name が正しいか（大文字小文字、スペースに注意）
-3. My Name がスプレッドシートの列ヘッダーと完全一致しているか
+1. Spreadsheet ID が正しいか確認
+2. Sheet Name が正しいか確認（大文字小文字、スペースに注意）
+3. My Name がスプレッドシートの列ヘッダーと完全一致しているか確認
+
+**確認方法**：
+- スプレッドシートのURLから正しいIDとGIDをコピー
+- シート名はスプレッドシートのタブ名と完全一致させる
+- 名前はスプレッドシートの列ヘッダー（1行目）と完全一致させる
+
+### 通知が来ない
+
+1. **Background Refresh** が有効になっているか確認
+   - Raycast Preferences → Extensions → Notify Okan Tasks
+   - トグルが **ON** になっているか確認
+
+2. 通知の条件を確認
+   - 平日13時：今日締切のタスクがある場合のみ
+   - 平日10-18時：期日切れまたは今日締切のタスクがある場合のみ
+   - 土日は通知なし
 
 ### 401 Unauthorized エラーが出る
 
