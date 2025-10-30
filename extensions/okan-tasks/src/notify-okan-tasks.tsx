@@ -8,6 +8,7 @@ interface Preferences {
   sheetGid: string;
   myName: string;
   notificationInterval?: string;
+  notificationSound?: string;
 }
 
 // 通知間隔からチェック頻度を算出（システム負荷を考慮）
@@ -140,12 +141,10 @@ export default async function Command() {
     if (overdueTasks.length > 0 || todayTasks.length > 0) {
       const messages: string[] = [];
       let title = "";
-      let soundName = "Glass"; // デフォルトの音
 
       if (overdueTasks.length > 0) {
         messages.push(`期日切れ: ${overdueTasks.length}件`);
         title = "🚨 期日切れタスクがあります！";
-        soundName = "Basso"; // より目立つ音
       }
       if (todayTasks.length > 0) {
         messages.push(`今日締切: ${todayTasks.length}件`);
@@ -155,6 +154,9 @@ export default async function Command() {
       }
 
       const message = `${messages.join(" / ")} - Raycastで「Check Okan Tasks」を開いてください`;
+
+      // ユーザー設定の通知音を使用（デフォルト: Basso）
+      const soundName = preferences.notificationSound || "Basso";
 
       // macOSシステム通知を送信（音付き）
       execSync(`osascript -e 'display notification "${message}" with title "${title}" sound name "${soundName}"'`);
