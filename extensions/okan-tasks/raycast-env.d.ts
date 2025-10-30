@@ -17,11 +17,7 @@ type ExtensionPreferences = {
   /** あなたの名前 - スプレッドシートの列ヘッダーと完全一致させること */
   "myName": string,
   /** 通知間隔 - 通知を送る間隔（デフォルト: 1時間） */
-  "notificationInterval": "1" | "30" | "60" | "120" | "240",
-  /** 通知音 - 通知時に鳴らす音（デフォルト: Basso） */
-  "notificationSound": "Basso" | "Blow" | "Bottle" | "Frog" | "Funk" | "Glass" | "Hero" | "Morse" | "Ping" | "Pop" | "Purr" | "Sosumi" | "Submarine" | "Tink",
-  /** 通知スタイル - 通知の表示方法（デフォルト: アラート） */
-  "notificationStyle": "alert" | "banner"
+  "notificationInterval": "1" | "30" | "60" | "120" | "240"
 }
 
 /** Preferences accessible in all the extension's commands */
@@ -32,8 +28,6 @@ declare namespace Preferences {
   export type CheckOkanTasks = ExtensionPreferences & {}
   /** Preferences accessible in the `notify-okan-tasks` command */
   export type NotifyOkanTasks = ExtensionPreferences & {}
-  /** Preferences accessible in the `test-notification-sound` command */
-  export type TestNotificationSound = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
@@ -41,7 +35,5 @@ declare namespace Arguments {
   export type CheckOkanTasks = {}
   /** Arguments passed to the `notify-okan-tasks` command */
   export type NotifyOkanTasks = {}
-  /** Arguments passed to the `test-notification-sound` command */
-  export type TestNotificationSound = {}
 }
 

@@ -24,13 +24,6 @@
       "description": "自動通知の設定（このコマンドは直接実行不要です。Background RefreshをONにして通知を有効化してください）",
       "mode": "no-view",
       "interval": "1m"
-    },
-    {
-      "name": "test-notification-sound",
-      "title": "Test Notification Sound",
-      "subtitle": "通知音テスト",
-      "description": "現在設定されている通知音をテスト再生します",
-      "mode": "no-view"
     }
   ],
   "preferences": [
@@ -93,90 +86,6 @@
         {
           "title": "4時間",
           "value": "240"
-        }
-      ]
-    },
-    {
-      "name": "notificationSound",
-      "type": "dropdown",
-      "required": false,
-      "title": "通知音",
-      "description": "通知時に鳴らす音（デフォルト: Basso）",
-      "default": "Basso",
-      "data": [
-        {
-          "title": "Basso（低音・デフォルト）",
-          "value": "Basso"
-        },
-        {
-          "title": "Blow（吹く音）",
-          "value": "Blow"
-        },
-        {
-          "title": "Bottle（ボトル）",
-          "value": "Bottle"
-        },
-        {
-          "title": "Frog（カエル）",
-          "value": "Frog"
-        },
-        {
-          "title": "Funk（ファンク）",
-          "value": "Funk"
-        },
-        {
-          "title": "Glass（ガラス）",
-          "value": "Glass"
-        },
-        {
-          "title": "Hero（ヒーロー）",
-          "value": "Hero"
-        },
-        {
-          "title": "Morse（モールス信号）",
-          "value": "Morse"
-        },
-        {
-          "title": "Ping（ピン）",
-          "value": "Ping"
-        },
-        {
-          "title": "Pop（ポップ）",
-          "value": "Pop"
-        },
-        {
-          "title": "Purr（ゴロゴロ音）",
-          "value": "Purr"
-        },
-        {
-          "title": "Sosumi（ソスミ）",
-          "value": "Sosumi"
-        },
-        {
-          "title": "Submarine（潜水艦）",
-          "value": "Submarine"
-        },
-        {
-          "title": "Tink（チーン）",
-          "value": "Tink"
-        }
-      ]
-    },
-    {
-      "name": "notificationStyle",
-      "type": "dropdown",
-      "required": false,
-      "title": "通知スタイル",
-      "description": "通知の表示方法（デフォルト: アラート）",
-      "default": "alert",
-      "data": [
-        {
-          "title": "アラート（OKを押すまで閉じない）",
-          "value": "alert"
-        },
-        {
-          "title": "通知バナー（自動的に消える）",
-          "value": "banner"
         }
       ]
     }

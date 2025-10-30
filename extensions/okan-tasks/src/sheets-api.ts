@@ -118,7 +118,12 @@ export async function getSpreadsheetValues(spreadsheetId: string, range: string)
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Sheets API エラー: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `Sheets API エラー: ${response.status} ${response.statusText}\n` +
+        `URL: ${url}\n` +
+        `Range: ${range}\n` +
+        `レスポンス: ${errorText}`
+    );
   }
 
   const data = (await response.json()) as { values?: any[][] };

@@ -8,8 +8,6 @@ interface Preferences {
   sheetGid: string;
   myName: string;
   notificationInterval?: string;
-  notificationSound?: string;
-  notificationStyle?: string;
 }
 
 // 通知間隔からチェック頻度を算出（システム負荷を考慮）
@@ -156,18 +154,15 @@ export default async function Command() {
 
       const message = `${messages.join(" / ")}\n\nRaycastで「Check Okan Tasks」を開いてください`;
 
-      // ユーザー設定の通知音を使用（デフォルト: Basso）
-      const soundName = preferences.notificationSound || "Basso";
+      // macOSアラートを表示（ユーザーが閉じるまで表示され続ける、音なし）
+      const result = execSync(
+        `osascript -e 'display alert "${title}" message "${message}" buttons {"OK", "タスクを確認"} default button "タスクを確認"'`
+      ).toString();
 
-      // ユーザー設定の通知スタイルを使用（デフォルト: alert）
-      const notificationStyle = preferences.notificationStyle || "alert";
-
-      if (notificationStyle === "alert") {
-        // macOSアラートを表示（ユーザーが閉じるまで表示され続ける、音なし）
-        execSync(`osascript -e 'display alert "${title}" message "${message}" buttons {"OK"} default button "OK"'`);
-      } else {
-        // 通知バナーを表示（自動的に消える、音あり）
-        execSync(`osascript -e 'display notification "${message}" with title "${title}" sound name "${soundName}"'`);
+      // 「タスクを確認」ボタンが押された場合、Raycastでタスク一覧を開く
+      if (result.includes("タスクを確認")) {
+        // Raycast URLスキームを使用してコマンドを直接開く
+        execSync(`open "raycast://extensions/nokki-y/raycast-okan/check-okan-tasks"`);
       }
 
       // 最後の通知時刻を記録
