@@ -3,6 +3,7 @@ import { execSync } from "child_process";
 
 interface Preferences {
   notificationSound?: string;
+  notificationStyle?: string;
 }
 
 export default async function Command() {
@@ -11,26 +12,31 @@ export default async function Command() {
 
     const preferences = getPreferenceValues<Preferences>();
     const soundName = preferences.notificationSound || "Basso";
+    const notificationStyle = preferences.notificationStyle || "alert";
 
-    // ∆π»Âí·
-    const title = "= ÂÛ∆π»";
-    const message = `˛(n-ö: ${soundName}`;
+    const title = "Test Notification Sound";
+    const message = `Current setting: ${soundName} (${notificationStyle})`;
 
-    // macOS∑π∆‡Âí·ÛÿM	
-    execSync(`osascript -e 'display notification "${message}" with title "${title}" sound name "${soundName}"'`);
+    if (notificationStyle === "alert") {
+      // macOS alert (no sound)
+      execSync(`osascript -e 'display alert "${title}" message "${message}" buttons {"OK"} default button "OK"'`);
+    } else {
+      // macOS notification banner (with sound)
+      execSync(`osascript -e 'display notification "${message}" with title "${title}" sound name "${soundName}"'`);
+    }
 
-    // Raycastn»¸π»Çh:
+    // Raycast toast
     await showToast({
       style: Toast.Style.Success,
-      title: "ÂÛ∆π»åÜ",
-      message: `${soundName} nÛLçUå~W_`,
+      title: "Notification sound test completed",
+      message: `${soundName} sound was played`,
     });
   } catch (error) {
-    console.error("ÂÛ∆π»®È¸:", error);
+    console.error("Notification sound test error:", error);
     await showToast({
       style: Toast.Style.Failure,
-      title: "®È¸",
-      message: "ÂÛn∆π»k1WW~W_",
+      title: "Error",
+      message: "Failed to test notification sound",
     });
   }
 }

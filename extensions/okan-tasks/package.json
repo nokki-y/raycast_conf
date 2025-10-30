@@ -161,6 +161,24 @@
           "value": "Tink"
         }
       ]
+    },
+    {
+      "name": "notificationStyle",
+      "type": "dropdown",
+      "required": false,
+      "title": "通知スタイル",
+      "description": "通知の表示方法（デフォルト: アラート）",
+      "default": "alert",
+      "data": [
+        {
+          "title": "アラート（OKを押すまで閉じない）",
+          "value": "alert"
+        },
+        {
+          "title": "通知バナー（自動的に消える）",
+          "value": "banner"
+        }
+      ]
     }
   ],
   "dependencies": {

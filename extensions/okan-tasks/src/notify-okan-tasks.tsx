@@ -9,6 +9,7 @@ interface Preferences {
   myName: string;
   notificationInterval?: string;
   notificationSound?: string;
+  notificationStyle?: string;
 }
 
 // 通知間隔からチェック頻度を算出（システム負荷を考慮）
@@ -153,13 +154,21 @@ export default async function Command() {
         }
       }
 
-      const message = `${messages.join(" / ")} - Raycastで「Check Okan Tasks」を開いてください`;
+      const message = `${messages.join(" / ")}\n\nRaycastで「Check Okan Tasks」を開いてください`;
 
       // ユーザー設定の通知音を使用（デフォルト: Basso）
       const soundName = preferences.notificationSound || "Basso";
 
-      // macOSシステム通知を送信（音付き）
-      execSync(`osascript -e 'display notification "${message}" with title "${title}" sound name "${soundName}"'`);
+      // ユーザー設定の通知スタイルを使用（デフォルト: alert）
+      const notificationStyle = preferences.notificationStyle || "alert";
+
+      if (notificationStyle === "alert") {
+        // macOSアラートを表示（ユーザーが閉じるまで表示され続ける、音なし）
+        execSync(`osascript -e 'display alert "${title}" message "${message}" buttons {"OK"} default button "OK"'`);
+      } else {
+        // 通知バナーを表示（自動的に消える、音あり）
+        execSync(`osascript -e 'display notification "${message}" with title "${title}" sound name "${soundName}"'`);
+      }
 
       // 最後の通知時刻を記録
       await LocalStorage.setItem("lastNotificationTime", now.toISOString());
