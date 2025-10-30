@@ -23,7 +23,7 @@
       "subtitle": "タスク通知",
       "description": "おかんタスクの通知（バックグラウンド実行）",
       "mode": "no-view",
-      "interval": "3m"
+      "interval": "1h"
     }
   ],
   "preferences": [
@@ -58,6 +58,62 @@
       "title": "あなたの名前",
       "description": "スプレッドシートの列ヘッダーと完全一致させること",
       "default": "your_name_here"
+    },
+    {
+      "name": "checkInterval",
+      "type": "dropdown",
+      "required": false,
+      "title": "チェック頻度",
+      "description": "タスクをチェックする頻度（デフォルト: 1時間）",
+      "default": "1h",
+      "data": [
+        {
+          "title": "15分（非推奨/テスト用）",
+          "value": "15m"
+        },
+        {
+          "title": "30分",
+          "value": "30m"
+        },
+        {
+          "title": "1時間（推奨）",
+          "value": "1h"
+        },
+        {
+          "title": "2時間",
+          "value": "2h"
+        }
+      ]
+    },
+    {
+      "name": "notificationInterval",
+      "type": "dropdown",
+      "required": false,
+      "title": "通知間隔",
+      "description": "実際に通知を送る間隔（デフォルト: 1時間）",
+      "default": "60",
+      "data": [
+        {
+          "title": "15分",
+          "value": "15"
+        },
+        {
+          "title": "30分",
+          "value": "30"
+        },
+        {
+          "title": "1時間（推奨）",
+          "value": "60"
+        },
+        {
+          "title": "2時間",
+          "value": "120"
+        },
+        {
+          "title": "4時間",
+          "value": "240"
+        }
+      ]
     }
   ],
   "dependencies": {

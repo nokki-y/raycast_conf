@@ -15,7 +15,11 @@ type ExtensionPreferences = {
   /** シートGID - シートのGID(URLのgid=の後の数字) */
   "sheetGid": string,
   /** あなたの名前 - スプレッドシートの列ヘッダーと完全一致させること */
-  "myName": string
+  "myName": string,
+  /** チェック頻度 - タスクをチェックする頻度（デフォルト: 1時間） */
+  "checkInterval": "15m" | "30m" | "1h" | "2h",
+  /** 通知間隔 - 実際に通知を送る間隔（デフォルト: 1時間） */
+  "notificationInterval": "15" | "30" | "60" | "120" | "240"
 }
 
 /** Preferences accessible in all the extension's commands */

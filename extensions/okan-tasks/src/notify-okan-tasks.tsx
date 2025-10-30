@@ -1,4 +1,4 @@
-import { showToast, Toast, getPreferenceValues, LaunchType, launchCommand, showHUD } from "@raycast/api";
+import { showToast, Toast, getPreferenceValues, LaunchType, launchCommand, showHUD, LocalStorage, environment } from "@raycast/api";
 import { getSpreadsheetValues } from "./sheets-api";
 import { execSync } from "child_process";
 
@@ -7,6 +7,24 @@ interface Preferences {
   sheetName: string;
   sheetGid: string;
   myName: string;
+  checkInterval?: string;
+  notificationInterval?: string;
+}
+
+// チェック間隔を分単位に変換
+function parseIntervalToMinutes(interval: string): number {
+  const match = interval.match(/^(\d+)([mh])$/);
+  if (!match) return 60; // デフォルト: 1時間
+
+  const value = parseInt(match[1], 10);
+  const unit = match[2];
+
+  if (unit === "m") {
+    return value;
+  } else if (unit === "h") {
+    return value * 60;
+  }
+  return 60;
 }
 
 interface Task {
@@ -28,9 +46,47 @@ export default async function Command() {
       return;
     }
 
-    // 10-18時以外はスキップ（13時の通知を除く）
+    // 10-18時以外はスキップ
     if (currentHour < 10 || currentHour > 18) {
       return;
+    }
+
+    // チェック間隔を分単位に変換
+    const checkIntervalMinutes = parseIntervalToMinutes(preferences.checkInterval || "1h");
+    // 再起動検出の閾値: チェック間隔の1.5倍
+    const restartDetectionThreshold = checkIntervalMinutes * 1.5;
+
+    // 通知間隔のチェック
+    const notificationIntervalMinutes = parseInt(preferences.notificationInterval || "60", 10);
+    const lastNotificationTime = await LocalStorage.getItem<string>("lastNotificationTime");
+    const lastCheckTime = await LocalStorage.getItem<string>("lastCheckTime");
+
+    // 最後のチェック時刻を更新
+    await LocalStorage.setItem("lastCheckTime", now.toISOString());
+
+    // 前回のチェック時刻がない、または閾値以上経過している場合は再起動と判断
+    if (!lastCheckTime) {
+      // 初回起動 → タイマーをリセット
+      await LocalStorage.removeItem("lastNotificationTime");
+    } else {
+      const lastCheck = new Date(lastCheckTime);
+      const minutesSinceLastCheck = (now.getTime() - lastCheck.getTime()) / 1000 / 60;
+
+      // 閾値以上経過している場合はRaycastが再起動されたと判断してリセット
+      if (minutesSinceLastCheck >= restartDetectionThreshold) {
+        await LocalStorage.removeItem("lastNotificationTime");
+      }
+    }
+
+    // 通常の間隔チェック
+    if (lastNotificationTime) {
+      const lastTime = new Date(lastNotificationTime);
+      const minutesSinceLastNotification = (now.getTime() - lastTime.getTime()) / 1000 / 60;
+
+      if (minutesSinceLastNotification < notificationIntervalMinutes) {
+        // まだ間隔時間が経過していない
+        return;
+      }
     }
 
     // データ取得
@@ -100,31 +156,7 @@ export default async function Command() {
     const overdueTasks = tasks.filter((task) => task.deadlineDate < today);
     const todayTasks = tasks.filter((task) => task.deadlineDate.getTime() === today.getTime());
 
-    // 13時の通知：当日タスクがあれば通知
-    if (currentHour === 13) {
-      if (todayTasks.length > 0) {
-        // macOSシステム通知を送信（音付き）
-        const title = "🚨 今日締切のタスクがあります！";
-        const message = `${todayTasks.length}件の未完了タスク - 今すぐ確認してください`;
-        execSync(`osascript -e 'display notification "${message}" with title "${title}" sound name "Glass"'`);
-
-        // Raycastのトーストも表示
-        await showToast({
-          style: Toast.Style.Failure,
-          title: title,
-          message: message,
-          primaryAction: {
-            title: "📋 タスクを確認する",
-            onAction: async () => {
-              await launchCommand({ name: "check-okan-tasks", type: LaunchType.UserInitiated });
-            },
-          },
-        });
-      }
-      return;
-    }
-
-    // 10-18時の毎時通知：期日切れまたは当日タスクがあれば通知
+    // 期日切れまたは当日タスクがあれば通知
     if (overdueTasks.length > 0 || todayTasks.length > 0) {
       const messages: string[] = [];
       let title = "";
@@ -159,6 +191,9 @@ export default async function Command() {
           },
         },
       });
+
+      // 最後の通知時刻を記録
+      await LocalStorage.setItem("lastNotificationTime", now.toISOString());
     }
   } catch (error) {
     console.error("通知エラー:", error);
