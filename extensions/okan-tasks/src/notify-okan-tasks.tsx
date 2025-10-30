@@ -7,23 +7,17 @@ interface Preferences {
   sheetName: string;
   sheetGid: string;
   myName: string;
-  checkInterval?: string;
   notificationInterval?: string;
 }
 
-// チェック間隔を分単位に変換
-function parseIntervalToMinutes(interval: string): number {
-  const match = interval.match(/^(\d+)([mh])$/);
-  if (!match) return 60; // デフォルト: 1時間
-
-  const value = parseInt(match[1], 10);
-  const unit = match[2];
-
-  if (unit === "m") {
-    return value;
-  } else if (unit === "h") {
-    return value * 60;
+// 通知間隔からチェック頻度を算出（システム負荷を考慮）
+function calculateCheckInterval(notificationIntervalMinutes: number): number {
+  // 通知間隔が1時間以下の場合は、同じ間隔でチェック
+  if (notificationIntervalMinutes <= 60) {
+    return notificationIntervalMinutes;
   }
+  // 通知間隔が1時間を超える場合は、チェック頻度を1時間に固定
+  // （システム負荷を抑えつつ、再起動検出も機能させる）
   return 60;
 }
 
@@ -51,13 +45,11 @@ export default async function Command() {
       return;
     }
 
-    // チェック間隔を分単位に変換
-    const checkIntervalMinutes = parseIntervalToMinutes(preferences.checkInterval || "1h");
+    // 通知間隔から最適なチェック間隔を算出
+    const notificationIntervalMinutes = parseInt(preferences.notificationInterval || "60", 10);
+    const checkIntervalMinutes = calculateCheckInterval(notificationIntervalMinutes);
     // 再起動検出の閾値: チェック間隔の1.5倍
     const restartDetectionThreshold = checkIntervalMinutes * 1.5;
-
-    // 通知間隔のチェック
-    const notificationIntervalMinutes = parseInt(preferences.notificationInterval || "60", 10);
     const lastNotificationTime = await LocalStorage.getItem<string>("lastNotificationTime");
     const lastCheckTime = await LocalStorage.getItem<string>("lastCheckTime");
 
