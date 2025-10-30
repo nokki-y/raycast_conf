@@ -156,8 +156,9 @@ cat > "$RELEASE_DIR/$RELEASE_NAME/INSTALL.md" <<'EOF'
 
 3. 通知間隔を確認・変更
    - Raycast → Check Okan Tasks → ⌘ + K → Configure Extension
-   - 「通知間隔」を調整（15分/30分/1時間/2時間/4時間）
+   - 「通知間隔」を調整（10秒/30分/1時間/2時間/4時間）
    - 推奨設定: 1時間
+   - テスト用: 10秒（非推奨）
 
 ### 401 Unauthorized エラーが出る
 
