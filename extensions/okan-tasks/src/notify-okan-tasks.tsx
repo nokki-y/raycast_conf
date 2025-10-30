@@ -32,18 +32,6 @@ export default async function Command() {
   try {
     const preferences = getPreferenceValues<Preferences>();
     const now = new Date();
-    const currentHour = now.getHours();
-    const currentDay = now.getDay(); // 0: 日曜, 6: 土曜
-
-    // 土日はスキップ
-    if (currentDay === 0 || currentDay === 6) {
-      return;
-    }
-
-    // 10-18時以外はスキップ
-    if (currentHour < 10 || currentHour > 18) {
-      return;
-    }
 
     // 通知間隔から最適なチェック間隔を算出
     const notificationIntervalMinutes = parseInt(preferences.notificationInterval || "60", 10);
