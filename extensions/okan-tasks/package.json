@@ -3,7 +3,7 @@
   "name": "raycast-okan",
   "title": "Okan Tasks",
   "description": "おかんスプレッドシートの未完了タスクを確認",
-  "icon": "assets/icon.png",
+  "icon": "icon.png",
   "author": "nokki-y",
   "categories": [
     "Productivity"
