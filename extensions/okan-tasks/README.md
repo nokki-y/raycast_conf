@@ -10,6 +10,7 @@
 - ✅ **軽量実装**: Google Sheets REST APIで高速動作
 - ✅ **自動トークン更新**: アクセストークンは自動的にリフレッシュされます（手動更新不要）
 - ✅ **バックグラウンド通知**: 期日切れ・今日締切のタスクを定期的に通知（24時間365日対応）
+- ✅ **通知音カスタマイズ**: 14種類の通知音から選択可能＋テスト機能付き
 
 ## 前提条件
 
@@ -130,8 +131,14 @@ npm run dev
 2. **Extensions** → **Okan Tasks** → **Okan Tasks - Background Notifications** を探す
 3. **Background Refresh** トグルを **ON** にする
 4. 通知間隔を設定（デフォルト: 1時間、テスト用: 1分）
+5. 通知音を好みの音に変更（デフォルト: Basso）
 
 これにより、期日切れまたは今日締切のタスクがあれば自動的に通知されます。
+
+##### 通知音のテスト
+1. Raycast を開く (⌘ + Space)
+2. `Test Notification Sound` と入力して実行
+3. 現在設定されている通知音でテスト通知が送信されます
 
 ### 4.3 表示されるタスク
 
@@ -179,12 +186,13 @@ npm run sync-auth
 ```
 extensions/okan-tasks/
 ├── src/
-│   ├── check-okan-tasks.tsx     # メインのRaycastコマンド（手動確認用）
-│   ├── notify-okan-tasks.tsx    # バックグラウンド通知コマンド
-│   ├── sheets-api.ts            # Google Sheets REST API呼び出し（自動トークンリフレッシュ機能付き）
-│   └── setup-auth.ts            # OAuth認証セットアップスクリプト
+│   ├── check-okan-tasks.tsx        # メインのRaycastコマンド（手動確認用）
+│   ├── notify-okan-tasks.tsx       # バックグラウンド通知コマンド
+│   ├── test-notification-sound.tsx # 通知音テストコマンド
+│   ├── sheets-api.ts               # Google Sheets REST API呼び出し（自動トークンリフレッシュ機能付き）
+│   └── setup-auth.ts               # OAuth認証セットアップスクリプト
 ├── scripts/
-│   ├── sync-auth.sh             # 認証情報同期スクリプト
+│   ├── sync-auth.sh                # 認証情報同期スクリプト
 │   └── build-release.sh         # リリースパッケージビルドスクリプト
 ├── .auth/                       # 認証情報（Gitで管理しない）
 │   ├── credentials.json         # OAuth クライアント情報
@@ -222,9 +230,11 @@ extensions/okan-tasks/
 
 - **チェック間隔**: 1分ごと（`package.json`の`interval: "1m"`で固定）
 - **通知間隔**: ユーザー設定（1分/30分/1時間/2時間/4時間）
+- **通知音**: ユーザー設定（14種類から選択可能、デフォルト: Basso）
 - **通知条件**: 期日切れまたは今日締切のタスクがある場合
 - **動作時間**: 24時間365日（時間帯・曜日制限なし）
 - **再起動検出**: Raycast再起動時に自動的にタイマーをリセット
+- **テスト機能**: `Test Notification Sound`コマンドで通知音を事前確認可能
 
 ## 注意事項
 

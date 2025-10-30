@@ -30,6 +30,8 @@ declare namespace Preferences {
   export type CheckOkanTasks = ExtensionPreferences & {}
   /** Preferences accessible in the `notify-okan-tasks` command */
   export type NotifyOkanTasks = ExtensionPreferences & {}
+  /** Preferences accessible in the `test-notification-sound` command */
+  export type TestNotificationSound = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
@@ -37,5 +39,7 @@ declare namespace Arguments {
   export type CheckOkanTasks = {}
   /** Arguments passed to the `notify-okan-tasks` command */
   export type NotifyOkanTasks = {}
+  /** Arguments passed to the `test-notification-sound` command */
+  export type TestNotificationSound = {}
 }
 
