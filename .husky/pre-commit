@@ -1,0 +1,2 @@
+# Run secret detection before commit
+npm run security:secrets

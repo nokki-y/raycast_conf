@@ -1,0 +1,150 @@
+# ============================================
+# 秘匿情報 (SECURITY CRITICAL)
+# ============================================
+
+# 環境変数ファイル（各ディレクトリに分散配置）
+commands/.env
+extensions/**/.env
+.env.*
+!**/.env.example
+!**/.env.template
+
+# Google OAuth credentials and tokens
+extensions/okan-tasks/assets/.auth/credentials.json
+extensions/okan-tasks/assets/.auth/token.json
+**/credentials.json
+**/token.json
+**/.auth/
+
+# SSH Keys & Certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.cert
+*.crt
+id_rsa
+id_dsa
+id_ed25519
+
+# API Keys & Secrets
+*secret*
+!.secretlintrc.json
+*apikey*
+*api-key*
+*api_key*
+*.secrets
+secrets.yaml
+secrets.yml
+secrets.json
+
+# AWS Credentials
+.aws/
+*.aws
+
+# ============================================
+# IDE & Editor
+# ============================================
+
+# Claude Code
+settings.local.json
+.claude/
+.cursor/
+
+# VSCode
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# JetBrains
+.idea/
+*.iml
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ============================================
+# Dependencies & Build
+# ============================================
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build output
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# Build temporary files
+extensions/okan-tasks/defaults.json
+extensions/okan-tasks/package.tmp.json
+extensions/okan-tasks/package.json.backup
+extensions/okan-tasks/raycast-env.d.ts
+
+# Generated script commands (built from templates)
+commands/release/
+
+# ============================================
+# Release & Archives
+# ============================================
+
+# Release packages (contains credentials)
+extensions/**/release/
+extensions/**/distribution/
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ============================================
+# OS & Temporary Files
+# ============================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+
+# ============================================
+# Security Tools
+# ============================================
+
+# Pre-commit
+.pre-commit-config.yaml.bak
+
+# Gitleaks
+gitleaks-report.json
+
+# TruffleHog
+trufflehog-results.json
+
+# Detect Secrets
+# .secrets.baseline は追跡対象（誤検知の管理用）
+# Commands release packages
+commands/release-packages/

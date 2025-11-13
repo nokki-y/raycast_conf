@@ -1,0 +1,96 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "raycast-okan",
+  "title": "Okan Tasks",
+  "description": "おかんスプレッドシートの未完了タスクを確認",
+  "icon": "icon.png",
+  "author": "nokki-y",
+  "categories": [
+    "Productivity"
+  ],
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "check-okan-tasks",
+      "title": "Check Okan Tasks",
+      "subtitle": "未完了タスク確認",
+      "description": "おかんスプレッドシートの未完了タスクを表示",
+      "mode": "view"
+    },
+    {
+      "name": "notify-okan-tasks",
+      "title": "Okan Tasks - Background Notifications",
+      "subtitle": "バックグラウンド通知設定",
+      "description": "自動通知の設定（このコマンドは直接実行不要です。Background RefreshをONにして通知を有効化してください）",
+      "mode": "no-view",
+      "interval": "10m"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "spreadsheetId",
+      "type": "textfield",
+      "required": true,
+      "title": "スプレッドシートID",
+      "description": "おかんスプレッドシートのID",
+      "default": "your_spreadsheet_id_here"
+    },
+    {
+      "name": "sheetName",
+      "type": "textfield",
+      "required": true,
+      "title": "シート名",
+      "description": "タスクが記載されているシートの名前",
+      "default": "your_sheet_name_here"
+    },
+    {
+      "name": "sheetGid",
+      "type": "textfield",
+      "required": true,
+      "title": "シートGID",
+      "description": "シートのGID(URLのgid=の後の数字)",
+      "default": "0"
+    },
+    {
+      "name": "myName",
+      "type": "textfield",
+      "required": true,
+      "title": "あなたの名前",
+      "description": "スプレッドシートの列ヘッダーと完全一致させること",
+      "default": "your_name_here"
+    },
+    {
+      "name": "notificationInterval",
+      "type": "dropdown",
+      "required": false,
+      "title": "通知間隔",
+      "description": "通知を送る間隔（BUILD_MODEに応じて動的に設定）",
+      "default": "60",
+      "data": []
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.103.5",
+    "@raycast/utils": "^2.2.1",
+    "googleapis": "^164.1.0"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.1.1",
+    "@types/node": "^24.9.2",
+    "eslint": "^9.38.0",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "prebuild": "node scripts/generate-defaults.js",
+    "build": "node scripts/build-with-defaults.js",
+    "build:dev": "BUILD_MODE=development node scripts/generate-defaults.js && BUILD_MODE=development node scripts/build-with-defaults.js",
+    "build:distribution": "bash scripts/build-distribution.sh",
+    "dev": "ray develop",
+    "lint": "ray lint",
+    "fix-lint": "ray lint --fix",
+    "setup-auth": "ts-node src/setup-auth.ts",
+    "sync-auth": "bash scripts/sync-auth.sh"
+  }
+}

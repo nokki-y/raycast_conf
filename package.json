@@ -1,0 +1,36 @@
+{
+  "name": "raycast-conf",
+  "version": "1.0.0",
+  "description": "Raycast configuration and extensions repository",
+  "private": true,
+  "scripts": {
+    "prepare": "husky",
+    "security:check": "npm run security:secrets",
+    "security:secrets": "secretlint \"**/*\"",
+    "preinstall": "node scripts/check-install.js || exit 0",
+    "build:commands": "bash commands/scripts/build.sh",
+    "release:commands": "bash commands/scripts/release.sh",
+    "release:okan": "bash extensions/okan-tasks/scripts/release.sh",
+    "build:okan:distribution": "bash extensions/okan-tasks/scripts/build-distribution.sh"
+  },
+  "devDependencies": {
+    "@secretlint/secretlint-rule-preset-recommend": "^8.2.4",
+    "@secretlint/secretlint-rule-aws": "^8.2.4",
+    "@secretlint/secretlint-rule-gcp": "^8.2.4",
+    "@secretlint/secretlint-rule-github": "^8.2.4",
+    "@secretlint/secretlint-rule-npm": "^8.2.4",
+    "@secretlint/secretlint-rule-privatekey": "^8.2.4",
+    "@secretlint/secretlint-rule-slack": "^8.2.4",
+    "secretlint": "^8.2.4",
+    "husky": "^9.0.11",
+    "eslint": "^8.57.0",
+    "eslint-plugin-security": "^3.0.1"
+  },
+  "keywords": [
+    "raycast",
+    "extensions",
+    "productivity"
+  ],
+  "author": "",
+  "license": "MIT"
+}
