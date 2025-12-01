@@ -1,5 +1,6 @@
 import { getPreferenceValues, LocalStorage, environment } from "@raycast/api";
 import { getSpreadsheetValues } from "./sheets-api";
+import { parseDeadline } from "./utils/date-parser";
 import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
@@ -156,14 +157,8 @@ export default async function Command() {
         continue;
       }
 
-      // 期日をパース
-      const deadlineParts = deadline.match(/(\d+)\/(\d+)/);
-      if (deadlineParts) {
-        const month = parseInt(deadlineParts[1], 10);
-        const day = parseInt(deadlineParts[2], 10);
-        const deadlineDate = new Date(today.getFullYear(), month - 1, day);
-        deadlineDate.setHours(0, 0, 0, 0);
-
+      const deadlineDate = parseDeadline(deadline, today);
+      if (deadlineDate) {
         tasks.push({
           title,
           status,

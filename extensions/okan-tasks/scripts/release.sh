@@ -186,17 +186,8 @@ create_release_package() {
     # ビルド済み拡張機能をコピー
     cp -r "$raycast_build_dir" "$release_dir/$package_name"
 
-    # 認証情報を削除（GitHubリリース用）
-    if [ -d "$release_dir/$package_name/assets/.auth" ]; then
-        rm -rf "$release_dir/$package_name/assets/.auth"
-        info "認証情報を除外しました（GitHubリリース用）" >&2
-    fi
-
     # バージョンファイルを追加
     echo "$version" > "$release_dir/$package_name/VERSION"
-
-    # 注意: 認証情報は含めません（GitHubリリース用）
-    # 配布用zipは別途 build-distribution.sh で作成してください
 
     # インストールガイドを生成
     generate_install_guide "$release_dir/$package_name" "$version"

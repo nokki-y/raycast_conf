@@ -1,6 +1,7 @@
 import { List, showToast, Toast, getPreferenceValues, Action, ActionPanel, open, Color, Icon } from "@raycast/api";
 import React, { useEffect, useState } from "react";
 import { getSpreadsheetValues } from "./sheets-api";
+import { parseDeadline, formatDeadline } from "./utils/date-parser";
 
 interface Preferences {
   spreadsheetId: string;
@@ -176,23 +177,14 @@ export default function Command() {
 
           // 「対象外」以外のタスクを抽出（空文字列＝未着手、完了も含む）
           if (status !== "対象外" && title && deadline) {
-            // 期日をパース（M/D形式）
-            const deadlineParts = deadline.match(/(\d+)\/(\d+)/);
-            if (deadlineParts) {
-              const month = parseInt(deadlineParts[1], 10);
-              const day = parseInt(deadlineParts[2], 10);
-              const deadlineDate = new Date(todayDate.getFullYear(), month - 1, day);
-              deadlineDate.setHours(0, 0, 0, 0);
-
-              // 期日を MM/DD 形式にフォーマット（ゼロパディング）
-              const formattedDeadline = `${String(month).padStart(2, '0')}/${String(day).padStart(2, '0')}`;
-
+            const deadlineDate = parseDeadline(deadline, todayDate);
+            if (deadlineDate) {
               filteredTasks.push({
-                rowIndex: i + 1, // スプレッドシートの行番号 (1-indexed)
+                rowIndex: i + 1,
                 title,
-                status: status || "未着手", // 空の場合は「未着手」と表示
-                deadline: formattedDeadline,
-                columnIndex: myColumnIndex, // ステータス列のインデックス
+                status: status || "未着手",
+                deadline: formatDeadline(deadlineDate),
+                columnIndex: myColumnIndex,
                 deadlineDate,
               });
             }
